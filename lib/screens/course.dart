@@ -17,6 +17,8 @@ class CourseState extends State<Course> {
 
   String searchString = "";
 
+  String email = "";
+
   final searchController = TextEditingController();
   // ignore: non_constant_identifier_names
   bool _IsSearching;
@@ -51,6 +53,7 @@ class CourseState extends State<Course> {
     super.initState();
     print("init course user");
     _IsSearching = false;
+    print(this.email);
     getUserCourseSearchFromWS(http.Client()).then((value) => {
           setState(() {
             courseList = value;

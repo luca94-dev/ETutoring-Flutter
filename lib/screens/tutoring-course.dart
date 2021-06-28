@@ -1,6 +1,7 @@
 import 'package:e_tutoring/constants/Theme.dart';
 import 'package:e_tutoring/controller/controllerWS.dart';
 import 'package:e_tutoring/model/courseModel.dart';
+import 'package:e_tutoring/utils/user_secure_storage.dart';
 import 'package:e_tutoring/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -45,6 +46,10 @@ class TutoringCourseState extends State<TutoringCourse> {
         });
       }
     });
+  }
+
+  getUser() async {
+    return await UserSecureStorage.getEmail();
   }
 
   @override

@@ -39,19 +39,32 @@ Future<UserModel> getUserInfoFromWS(http.Client client) async {
 }
 
 Future<List<CourseModel>> getUserCourseSearchFromWS(http.Client client,
-    {String searchString = ''}) async {
+    {String searchString = '', String email = ''}) async {
   List<CourseModel> courseList = [];
-
+  var queryParameters;
   try {
-    var queryParameters = {
-      'email': await UserSecureStorage.getEmail(),
-    };
-
-    if (searchString != '') {
+    if (email.isEmpty || email == null) {
       queryParameters = {
         'email': await UserSecureStorage.getEmail(),
-        'query': searchString,
       };
+
+      if (searchString != '') {
+        queryParameters = {
+          'email': await UserSecureStorage.getEmail(),
+          'query': searchString,
+        };
+      }
+    } else {
+      queryParameters = {
+        'email': email,
+      };
+
+      if (searchString != '') {
+        queryParameters = {
+          'email': email,
+          'query': searchString,
+        };
+      }
     }
     // print(queryParameters);
 

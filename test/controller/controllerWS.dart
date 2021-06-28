@@ -19,6 +19,28 @@ void main() {
    * GET ALL: restituisce la lista di tutti corsi
    * GET ONE (course_id): restituisce un singolo corso e le relative informazioni 
    */
+  getAllCourseFromWSTest();
+
+  /**
+   * getRoleListFromWS
+   * GET ALL: restituisce la lista di tutti ruoli
+   */
+  getRoleListFromWSTest();
+
+  /**
+   * getRoleFromWS
+   * GET ONE ROLE (email): restiuisce un json rappresentate il ruolo di un utente
+   */
+  getRoleFromWSTest();
+
+  /**
+   * getUserCourseSearchFromWS
+   * GET (email): restiuisce la lista dei corsi a cui l'utente può richiedere un tutoraggio
+   */
+  getUserCourseSearchFromWSTest();
+}
+
+getAllCourseFromWSTest() {
   group('getAllCourseFromWS', () {
     test('return a List of CourseModel if the http call completes successfully',
         () async {
@@ -75,14 +97,11 @@ void main() {
       expect(courseList, []);
     });
   });
+}
 
-  /**
-   * getRoleListFromWS
-   * GET ALL: restituisce la lista di tutti ruoli
-   */
+getRoleListFromWSTest() {
   group('getRoleListFromWS', () {
-    test(
-        'returns a List of DegreeModel if the http call completes successfully',
+    test('return a List of DegreeModel if the http call completes successfully',
         () async {
       final client = MockClient();
 
@@ -97,8 +116,7 @@ void main() {
       expect(roleList, isA<List<RoleModel>>());
     });
 
-    test(
-        'returns a List of DegreeModel if the http call completes successfully',
+    test('return a List of DegreeModel if the http call completes successfully',
         () async {
       final client = MockClient();
 
@@ -127,14 +145,12 @@ void main() {
       expect(roleList, []);
     });
   });
+}
 
-/**
-   * getRoleFromWS
-   * GET ALL: restituisce la lista di tutti ruoli
-   */
+getRoleFromWSTest() {
   group('getRoleFromWS', () {
     test(
-        'returns a RoleModel of email user if the http call completes successfully',
+        'return a RoleModel of email user if the http call completes successfully',
         () async {
       final client = MockClient();
 
@@ -154,7 +170,7 @@ void main() {
     });
 
     test(
-        'returns a RoleModel of email user if the http call completes successfully',
+        'return a RoleModel of email user if the http call completes successfully',
         () async {
       final client = MockClient();
 
@@ -174,7 +190,7 @@ void main() {
     });
 
     test(
-        'returns a RoleModel of email user if the http call completes successfully',
+        'return a RoleModel of email user if the http call completes successfully',
         () async {
       final client = MockClient();
 
@@ -207,6 +223,65 @@ void main() {
       RoleModel role =
           await getRoleFromWS(client, "luca.marignati@edu.unito.it");
       expect(role, null);
+    });
+  });
+}
+
+getUserCourseSearchFromWSTest() {
+  group('getUserCourseSearchFromWS', () {
+    test(
+        'return a list of CourseModel of email user if the http call completes successfully',
+        () async {
+      final client = MockClient();
+
+      when(client.get(
+        Uri.https(authority, unencodedPath + "course_search.php", {
+          'email': "luca.marignati@edu.unito.it",
+        }),
+        headers: <String, String>{'authorization': basicAuth},
+      )).thenAnswer((_) async => http.Response(
+          '[{"course_id": "3","course_name": "Agenti Intelligenti","course_cfu": "6","enrollment_year": "2021/2022","study_year": "1"}]',
+          200));
+
+      List<CourseModel> courseList = await getUserCourseSearchFromWS(client,
+          email: "luca.marignati@edu.unito.it");
+      expect(courseList, isA<List<CourseModel>>());
+    });
+
+    test(
+        'return a list of CourseModel of email user if the http call completes successfully',
+        () async {
+      final client = MockClient();
+
+      when(client.get(
+        Uri.https(authority, unencodedPath + "course_search.php", {
+          'email': "luca.marignati@edu.unito.it",
+        }),
+        headers: <String, String>{'authorization': basicAuth},
+      )).thenAnswer((_) async => http.Response(
+          '[{"course_id": "3","course_name": "Agenti Intelligenti","course_cfu": "6","enrollment_year": "2021/2022","study_year": "1"}]',
+          200));
+
+      List<CourseModel> courseList = await getUserCourseSearchFromWS(client,
+          email: "luca.marignati@edu.unito.it");
+      expect(courseList[0].course_name, "Agenti Intelligenti");
+    });
+
+    test(
+        'if the http call completes with an error 404 return an empty array []',
+        () async {
+      final client = MockClient();
+
+      when(client.get(
+              Uri.https(authority, unencodedPath + "course_search.php", {
+                'email': "luca.marignati@edu.unito.it",
+              }),
+              headers: <String, String>{'authorization': basicAuth}))
+          .thenAnswer((_) async => http.Response('Not Found', 404));
+
+      List<CourseModel> courseList = await getUserCourseSearchFromWS(client,
+          email: "luca.marignati@edu.unito.it");
+      expect(courseList, []);
     });
   });
 }
