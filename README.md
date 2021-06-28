@@ -17,4 +17,4 @@ const String authority = 'www.e-tutoring-app.it';
 const String unencodedPath = 'ws/';
 
 #TEST
-Run by terminal: flutter test test/controllerWS.dart
+Run by terminal: flutter test test/controller/controllerWS.dart
