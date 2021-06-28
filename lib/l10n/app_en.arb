@@ -1,0 +1,323 @@
+{
+  "language": "English",
+  "@language":{
+    "description": "The current Language"
+  },
+  "helloWorld": "Hello World!",
+  "@helloWorld": {
+    "description": "A programmer greeting"
+  },
+  "hello": "Hello {username}",
+  "@hello": {
+    "description": "A welcome message",
+    "placeholders": {
+       "username": {
+         "type": "String"
+       }
+    }
+  },
+  "welcome": "Welcome to\nE-Tutoring",
+  "@welcome": {
+    "description": "Welcome to E-Tutoring"
+  },
+  "login": "Login",
+  "@login": {
+    "description": "Login"
+  },
+  "signup": "Sign up",
+  "@signup": {
+    "description": "Sign up"
+  },
+  "yourpassword": "Your Password",
+  "@yourpassword": {
+    "description": "Your Password"
+  },
+  "youremail": "Your Email",
+  "@youremail": {
+    "description": "Your Email"
+  },
+  "error_email_empty": "Please enter your email",
+  "@error_password_empty": {
+    "description": "Please enter your email"
+  },
+  "error_email_not_valid": "Please enter a valid email",
+  "@error_email_not_valid": {
+    "description": "Please enter a valid email"
+  }, 
+  "error_password_empty": "Please enter your password",
+  "@error_password_empty": {
+    "description": "Please enter your password"
+  },
+  "error_password_not_valid" : "Enter a password of at least 4 characters.",
+  "@error_password_not_valid": {
+    "description": "Enter a password of at least 4 characters."
+  },
+  "confirmPassword" : "Confirm Password",
+  "@confirmPassword": {
+    "description": "Confirm Password"
+  },
+  "passwords_not_match": "The passwords you entered do not match.",
+  "@passwords_not_match": {
+    "description": "The passwords you entered do not match."
+  },
+  "select_degree_course" : "Select the Degree Course",
+  "@select_degree_course": {
+    "description": "Select the degree course"
+  },
+  "select_role" : "Select role",
+  "@select_role": {
+    "description": "Select role"
+  },
+  "select_curriculum" : "Select curriculum",
+  "@select_role": {
+    "description": "Select curriculum"
+  },
+  "agree" : "I agree with the",
+  "@agree": {
+    "description": "I agree with the"
+  },
+  "privacy_policy" : "Privacy Policy",
+  "@privacy_policy": {
+    "description": "Privacy Policy"
+  },
+  "privacy_policy_title" : "Privacy Policy",
+  "@privacy_policy_title": {
+    "description": "Privacy Policy Title"
+  },
+  "change_language" : "Change language",
+  "@change_language": {
+    "description": "Change language"
+  },
+  "cancel_account" : "Cancel Account",
+  "@cancel_account": {
+    "description": "Canel Account"
+  },
+  "cancel" : "Delete",
+  "@cancel": {
+    "description": "Delete"
+  },
+  "settings" : "Settings",
+  "@settings": {
+    "description": "Settings"
+  },
+  "lastname": "Surname",
+  "@lastname": {
+    "description": "Surname"
+  },
+  "name": "Name",
+  "@name": {
+    "description": "Name"
+  },
+  "change": "Change",
+  "@change": {
+    "description": "Change"
+  },
+  "nationality": "Nationality",
+  "@nationality": {
+    "description": "Nationality"
+  },
+  "date_of_birth" : "Date of birth",
+  "@date_of_birth": {
+    "description": "Date of birth"
+  },
+  "birth_place" : "Birth place",
+  "@birth_place": {
+    "description": "Birth place"
+  },
+  "residence_city" : "Residence",
+  "@residence_city": {
+    "description": "City of residence"
+  },
+  "role" : "Role",
+  "@role": {
+    "description": "Role"
+  },
+  "number" : "Numero",
+  "@role": {
+    "description": "Number"
+  },
+  "degree_course" : "Degree Course",
+  "@degree_course": {
+    "description": "Degree Course"
+  },
+  "type" : "Type",
+  "@type": {
+    "description": "Type"
+  },
+  "headquarters" : "Headquarters",
+  "@headquarters": {
+    "description": "Headquarters"
+  },
+  "curriculum" : "Curriculum",
+  "@curriculum": {
+    "description": "Curriculum"
+  },
+  "profile" : "Profile",
+  "@profile": {
+    "description": "Profile"
+  },
+  "tutoring_course" : "My Tutoring Course",
+  "@tutoring_course": {
+    "description": "My Tutoring Course"
+  },
+  "courses" : "Courses",
+  "@cousers": {
+    "description": "Courses"
+  },
+  "tutor" : "Search Tutor",
+  "@tutor": {
+    "description": "Tutor"
+  },
+  "calendar" : "Calendar",
+  "@calendar": {
+    "description": "Calendar"
+  },
+  "logout" : "Logout",
+  "@logout": {
+    "description": "Logout"
+  },
+  "change_password" : "Change Password",
+  "@change_password": {
+    "description": "Change Password"
+  },
+  "old_password" : "Old Password",
+  "@old_password": {
+    "description": "Old Password"
+  },
+  "new_password" : "New Password",
+  "@new_password": {
+    "description": "New Password"
+  },
+  "save" : "Save",
+  "@save": {
+    "description": "Save"
+  },
+  "favorite_tutor" : "Favorite tutor",
+  "@favorite_tutor": {
+    "description": "Favorite tutor"
+  },
+  "complete_your_profile" : "Complete your profile",
+  "@complete_your_profile": {
+    "description": "Complete your profile"
+  },
+  "chat" : "Chat",
+  "@chat": {
+    "description": "Chat"
+  },
+  "tutor_detail" : "Tutor detail",
+  "@tutor_detail": {
+    "description": "Tutor detail"
+  },
+  "description" : "Description",
+  "@description": {
+    "description": "Description"
+  },
+  "address" : "Address",
+  "@address": {
+    "description": "Address"
+  },
+  "reviews" : "Reviews",
+  "@reviews": {
+    "description": "Reviews"
+  },
+  "conctact_me" : "Contact",
+  "@conctact_me": {
+    "description": "Contanct"
+  },
+  "time_slot" : "Availability",
+  "@time_slot": {
+    "description": "Time slot"
+  },
+  "conversations" : "Chat",
+  "@conversations": {
+    "description": "Conversations"
+  },
+  "edit_profile" : "Edit profile",
+  "@edit_profile": {
+    "description": "Edit profile"
+  },
+  "result_not_found" : "The search did not obtain results",
+  "@result_not_found": {
+    "description": "The search did not obtain results"
+  },
+  "result_tutor_not_found" : "No tutors available",
+  "@result_tutor_not_found": {
+    "description": "No tutors available"
+  },
+  "result_course_not_found" : "Courses not found",
+  "@result_course_not_found": {
+    "description": "Courses not found"
+  },
+  "add_courses" : "Add course",
+  "@add_courses": {
+    "description": "Add course"
+  },
+  "my_courses" : "My course",
+  "@my_courses": {
+    "description": "My course"
+  },
+  "my_timeslot" : "My availability",
+  "@my_timeslot": {
+    "description": "My availability"
+  },
+  "reviews_about_me" : "Reviews about me",
+  "@reviews_about_me": {
+    "description": "Reviews about me"
+  },
+  "my_reviews" : "My Reviews",
+  "@my_reviews": {
+    "description": "My Reviews"
+  },
+  "add_time_slot" : "Add availability",
+  "@add_time_slot": {
+    "description": "Add availability"
+  },
+  "result_tutor_not_found_time_slot" : "The tutor isn't available",
+  "@add_tiresult_tutor_not_found_time_slotme_slot": {
+    "description": "The tutor isn't available"
+  },
+  "private_lesson" : "Tutoring lessons",
+  "@private_lesson": {
+    "description": "Tutoring lessons"
+  },
+  "add_review" : "Add review",
+  "@add_review": {
+    "description": "Add review"
+  },
+  "write_a_review" : "Write a review",
+  "@write_a_review": {
+    "description": "Write a review"
+  },
+  "score" : "Score (1-5)",
+  "@score": {
+    "description": "Score (1-5)"
+  },
+  "phone_number" : "Phone number",
+  "@phone_number": {
+    "description": "Phone number"
+  },
+  "notifications" : "Notifications",
+  "@notifications": {
+    "description": "Notifications"
+  },
+  "notifications_not_found" : "No new notifications",
+  "@notifications_not_found": {
+    "description": "Empty new notifications"
+  },
+  "has_booked_your_course" : " has booked your course ",
+  "@has_booked_your_course": {
+    "description": "has booked your course"
+  },
+  "for_the_date" : " for the date ",
+  "@for_the_date": {
+    "description": "for the date"
+  },
+  "today" : "Today",
+  "@today": {
+    "description": "Today"
+  },
+  "message_notification" : "New lesson booked",
+  "@message_notification": {
+    "description": "New lesson booked"
+  }
+}
