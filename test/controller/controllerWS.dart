@@ -14,9 +14,13 @@ import 'package:http/http.dart' as http;
 
 @GenerateMocks([http.Client])
 void main() {
+  /**
+   * getAllCourseFromWS
+   * GET ALL: restituisce la lista di tutti corsi
+   * GET ONE (course_id): restituisce un singolo corso e le relative informazioni 
+   */
   group('getAllCourseFromWS', () {
-    test(
-        'returns a List of CourseModel if the http call completes successfully',
+    test('return a List of CourseModel if the http call completes successfully',
         () async {
       final client = MockClient();
 
@@ -72,6 +76,10 @@ void main() {
     });
   });
 
+  /**
+   * getRoleListFromWS
+   * GET ALL: restituisce la lista di tutti ruoli
+   */
   group('getRoleListFromWS', () {
     test(
         'returns a List of DegreeModel if the http call completes successfully',
@@ -120,6 +128,10 @@ void main() {
     });
   });
 
+/**
+   * getRoleFromWS
+   * GET ALL: restituisce la lista di tutti ruoli
+   */
   group('getRoleFromWS', () {
     test(
         'returns a RoleModel of email user if the http call completes successfully',
