@@ -165,7 +165,7 @@ class _ProfileState extends State<Profile> {
                 // print(newNotification),
                 print(newNotificationsList.length),
                 print(notificationsList.length),
-                if (notificationsList.length > 0 &&
+                if (notificationsList.length >= 0 &&
                     notificationsList.length < newNotificationsList.length)
                   {
                     showNotification(),
