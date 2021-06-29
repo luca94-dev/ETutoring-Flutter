@@ -1,9 +1,10 @@
 import 'package:e_tutoring/constants/Theme.dart';
-import 'package:e_tutoring/controller/controllerWS.dart';
+import 'package:e_tutoring/controller/course_controllerWS.dart';
 import 'package:e_tutoring/model/courseModel.dart';
 import 'package:e_tutoring/utils/user_secure_storage.dart';
 import 'package:e_tutoring/widgets/drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'courseDetail.dart';
 import 'package:http/http.dart' as http;
@@ -159,7 +160,20 @@ class TutoringCourseState extends State<TutoringCourse> {
         color: Colors.white,
         child: ListView(
           padding: new EdgeInsets.symmetric(vertical: 8.0),
-          children: _IsSearching ? _buildSearchList() : _buildList(),
+          children: _IsSearching
+              ? (_buildSearchList().length == 0
+                  ? [
+                      const SizedBox(height: 30),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.image_search),
+                            Text(AppLocalizations.of(context).result_not_found,
+                                style: TextStyle(fontSize: 18)),
+                          ])
+                    ]
+                  : _buildSearchList())
+              : _buildList(),
         ),
       ),
     );

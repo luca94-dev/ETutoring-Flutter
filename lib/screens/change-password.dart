@@ -1,6 +1,5 @@
-import 'dart:convert';
 import 'dart:ui';
-import 'package:e_tutoring/config/config.dart';
+import 'package:e_tutoring/controller/login_controllerWS.dart';
 import 'package:e_tutoring/screens/profile.dart';
 import 'package:e_tutoring/utils/user_secure_storage.dart';
 import 'package:e_tutoring/widgets/button_widget.dart';
@@ -93,43 +92,30 @@ class _ChangepasswordState extends State<Changepassword> {
       String email = await UserSecureStorage.getEmail();
       String password = passwordController.text.trim();
 
-      var data = {
-        'email': email,
-        'password': password,
-      };
       // print(json.encode(data));
 
-      var response = await http
-          .post(
-            Uri.https(authority, unencodedPath + 'user_change_password.php'),
-            headers: <String, String>{'authorization': basicAuth},
-            body: json.encode(data),
-          )
-          .timeout(const Duration(seconds: 8));
+      var changePwdResult =
+          await changePassword(http.Client(), email, password);
 
-      if (response.statusCode == 200) {
-        var message = jsonDecode(response.body);
-        // print(message);
-        setState(() {
-          visible = false;
-        });
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: new Text(message),
-              actions: <Widget>[
-                TextButton(
-                  child: new Text("OK"),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      }
+      setState(() {
+        visible = false;
+      });
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text(changePwdResult),
+            actions: <Widget>[
+              TextButton(
+                child: new Text("OK"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
     } on Exception catch ($e) {
       print('error caught: ' + $e.toString());
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

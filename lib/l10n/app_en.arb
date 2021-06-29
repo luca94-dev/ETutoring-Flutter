@@ -319,5 +319,9 @@
   "message_notification" : "New lesson booked",
   "@message_notification": {
     "description": "New lesson booked"
+  },
+  "lesson_empty" : "No booked lessons",
+  "@lesson_empty": {
+    "description": "No booked lessons"
   }
 }

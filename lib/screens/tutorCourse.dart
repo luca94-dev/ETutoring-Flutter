@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:e_tutoring/config/config.dart';
 import 'package:e_tutoring/constants/Theme.dart';
-import 'package:e_tutoring/controller/controllerWS.dart';
+import 'package:e_tutoring/controller/course_controllerWS.dart';
 import 'package:e_tutoring/model/courseModel.dart';
 import 'package:e_tutoring/screens/my-tutor-course.dart';
 import 'package:e_tutoring/utils/user_secure_storage.dart';

@@ -3,113 +3,14 @@ import 'dart:convert';
 import 'package:e_tutoring/config/config.dart';
 import 'package:e_tutoring/model/notificationTutorModel.dart';
 import 'package:e_tutoring/model/privatelessonModel.dart';
-import 'package:e_tutoring/model/roleModel.dart';
 import 'package:e_tutoring/model/courseModel.dart';
 import 'package:e_tutoring/model/curriculumModel.dart';
 import 'package:e_tutoring/model/degreeModel.dart';
 import 'package:e_tutoring/model/reviewModel.dart';
 import 'package:e_tutoring/model/tutorLesson.dart';
 import 'package:e_tutoring/model/tutorModel.dart';
-import 'package:e_tutoring/model/userModel.dart';
 import 'package:e_tutoring/utils/user_secure_storage.dart';
 import 'package:http/http.dart' as http;
-
-Future<UserModel> getUserInfoFromWS(http.Client client) async {
-  try {
-    var queryParameters = {
-      'email': await UserSecureStorage.getEmail(),
-    };
-    // print(queryParameters);
-    var response = await client.get(
-        Uri.https(authority, unencodedPath + "users_list.php", queryParameters),
-        headers: <String, String>{'authorization': basicAuth});
-
-    var user;
-    if (response.statusCode == 200) {
-      // print(response.body);
-      var userJsonData = json.decode(response.body);
-      user = UserModel.fromJson(userJsonData);
-      // print(user);
-    }
-    return user;
-  } on Exception catch ($e) {
-    print('error caught: ' + $e.toString());
-    return null;
-  }
-}
-
-Future<List<CourseModel>> getUserCourseSearchFromWS(http.Client client,
-    {String searchString = '', String email = ''}) async {
-  List<CourseModel> courseList = [];
-  var queryParameters;
-  try {
-    if (email.isEmpty || email == null) {
-      queryParameters = {
-        'email': await UserSecureStorage.getEmail(),
-      };
-
-      if (searchString != '') {
-        queryParameters = {
-          'email': await UserSecureStorage.getEmail(),
-          'query': searchString,
-        };
-      }
-    } else {
-      queryParameters = {
-        'email': email,
-      };
-
-      if (searchString != '') {
-        queryParameters = {
-          'email': email,
-          'query': searchString,
-        };
-      }
-    }
-    // print(queryParameters);
-
-    var response = await client.get(
-        Uri.https(
-            authority, unencodedPath + "course_search.php", queryParameters),
-        headers: <String, String>{'authorization': basicAuth});
-    if (response.statusCode == 200) {
-      // print(response.body);
-      var courseJsonData = json.decode(response.body);
-      // print(courseJsonData);
-      for (var courseItem in courseJsonData) {
-        var course = CourseModel.fromJson(courseItem);
-        // print(course);
-        courseList.add(course);
-      }
-    }
-    return courseList;
-  } on Exception catch ($e) {
-    print('error caught: ' + $e.toString());
-    return [];
-  }
-}
-
-Future<List<CourseModel>> getAllCourseFromWS(http.Client client) async {
-  List<CourseModel> courseList = [];
-
-  try {
-    var response = await client.get(
-        Uri.https(authority, unencodedPath + "course_list.php"),
-        headers: <String, String>{'authorization': basicAuth});
-    // print(response.statusCode);
-    if (response.statusCode == 200) {
-      var courseJsonData = json.decode(response.body);
-      for (var courseItem in courseJsonData) {
-        var course = CourseModel.fromJson(courseItem);
-        courseList.add(course);
-      }
-    }
-    return courseList;
-  } on Exception catch ($e) {
-    print('error caught: ' + $e.toString());
-    return [];
-  }
-}
 
 Future<List<DegreeModel>> getDegreeListFromWS(http.Client client) async {
   List<DegreeModel> degreeList = [];
@@ -155,27 +56,6 @@ Future<List<CurriculumModel>> getCurriculumListFromWS(
       }
     }
     return curriculumList;
-  } on Exception catch ($e) {
-    print('error caught: ' + $e.toString());
-    return [];
-  }
-}
-
-Future<List<RoleModel>> getRoleListFromWS(http.Client client) async {
-  List<RoleModel> roleList = [];
-
-  try {
-    var response = await client.get(
-        Uri.https(authority, unencodedPath + "role_list.php"),
-        headers: <String, String>{'authorization': basicAuth});
-    if (response.statusCode == 200) {
-      var roleJsonData = json.decode(response.body);
-      for (var roleItem in roleJsonData) {
-        var role = RoleModel.fromJson(roleItem);
-        roleList.add(role);
-      }
-    }
-    return roleList;
   } on Exception catch ($e) {
     print('error caught: ' + $e.toString());
     return [];
@@ -290,12 +170,20 @@ Future<List<ReviewModel>> getReviewFromWS(
   }
 }
 
-Future<List<ReviewModel>> getReviewTutorFromWS(http.Client client) async {
+Future<List<ReviewModel>> getReviewTutorFromWS(http.Client client,
+    {String email = ''}) async {
   List<ReviewModel> reviewList = [];
+  var queryParameters;
   try {
-    var queryParameters = {
-      'email': await UserSecureStorage.getEmail(),
-    };
+    if (email == null || email.isEmpty) {
+      queryParameters = {
+        'email': await UserSecureStorage.getEmail(),
+      };
+    } else {
+      queryParameters = {
+        'email': email,
+      };
+    }
     // print(queryParameters);
     var response = await client.get(
         Uri.https(
@@ -316,12 +204,20 @@ Future<List<ReviewModel>> getReviewTutorFromWS(http.Client client) async {
   }
 }
 
-Future<List<ReviewModel>> getReviewsUserFromWS(http.Client client) async {
+Future<List<ReviewModel>> getReviewsUserFromWS(http.Client client,
+    {String email = ''}) async {
   List<ReviewModel> reviewList = [];
+  var queryParameters;
   try {
-    var queryParameters = {
-      'email': await UserSecureStorage.getEmail(),
-    };
+    if (email == null || email.isEmpty) {
+      queryParameters = {
+        'email': await UserSecureStorage.getEmail(),
+      };
+    } else {
+      queryParameters = {
+        'email': email,
+      };
+    }
     // print(queryParameters);
     var response = await client.get(
         Uri.https(
@@ -342,37 +238,20 @@ Future<List<ReviewModel>> getReviewsUserFromWS(http.Client client) async {
   }
 }
 
-Future<RoleModel> getRoleFromWS(http.Client client, String email) async {
+Future<List<PrivatelessonModel>> getPrivateLessonFromWS(http.Client client,
+    {String email = ''}) async {
+  List<PrivatelessonModel> lessonList = [];
+  var queryParameters;
   try {
-    var queryParameters = {
-      'email': email,
-    };
-    // print(queryParameters);
-    var response = await client.get(
-        Uri.https(
-            authority, unencodedPath + "get_user_role.php", queryParameters),
-        headers: <String, String>{'authorization': basicAuth});
-
-    var course;
-    if (response.statusCode == 200) {
-      // print(response.body);
-      var courseJsonData = json.decode(response.body);
-      course = RoleModel.fromJson(courseJsonData);
+    if (email == null || email.isEmpty) {
+      queryParameters = {
+        'email': await UserSecureStorage.getEmail(),
+      };
+    } else {
+      queryParameters = {
+        'email': email,
+      };
     }
-    return course;
-  } on Exception catch ($e) {
-    print('error caught: ' + $e.toString());
-    return null;
-  }
-}
-
-Future<List<PrivatelessonModel>> getPrivateLessonFromWS(
-    http.Client client) async {
-  try {
-    List<PrivatelessonModel> lessonList = [];
-    var queryParameters = {
-      'email': await UserSecureStorage.getEmail(),
-    };
     // print(queryParameters);
     var response = await client.get(
         Uri.https(authority, unencodedPath + "private_lesson_list.php",
@@ -393,12 +272,20 @@ Future<List<PrivatelessonModel>> getPrivateLessonFromWS(
   }
 }
 
-Future<List<TutorLessonModel>> getTutorLessonFromWS(http.Client client) async {
+Future<List<TutorLessonModel>> getTutorLessonFromWS(http.Client client,
+    {String email = ''}) async {
   List<TutorLessonModel> lessonList = [];
+  var queryParameters;
   try {
-    var queryParameters = {
-      'email': await UserSecureStorage.getEmail(),
-    };
+    if (email == null || email.isEmpty) {
+      queryParameters = {
+        'email': await UserSecureStorage.getEmail(),
+      };
+    } else {
+      queryParameters = {
+        'email': email,
+      };
+    }
 
     var response = await client.get(
         Uri.https(authority, unencodedPath + "tutor_lesson_list.php",
@@ -423,13 +310,20 @@ Future<List<TutorLessonModel>> getTutorLessonFromWS(http.Client client) async {
   }
 }
 
-Future<List<TutorLessonModel>> getTutorLessonTodayFromWS(
-    http.Client client) async {
+Future<List<TutorLessonModel>> getTutorLessonTodayFromWS(http.Client client,
+    {String email = ''}) async {
   List<TutorLessonModel> lessonList = [];
+  var queryParameters;
   try {
-    var queryParameters = {
-      'email': await UserSecureStorage.getEmail(),
-    };
+    if (email == null || email.isEmpty) {
+      queryParameters = {
+        'email': await UserSecureStorage.getEmail(),
+      };
+    } else {
+      queryParameters = {
+        'email': email,
+      };
+    }
 
     var response = await client.get(
         Uri.https(authority, unencodedPath + "tutor_lesson_today_list.php",
@@ -455,12 +349,20 @@ Future<List<TutorLessonModel>> getTutorLessonTodayFromWS(
 }
 
 Future<List<NotificationsTutorModel>> getNotificationsTutorFromWS(
-    http.Client client) async {
+    http.Client client,
+    {String email = ''}) async {
   List<NotificationsTutorModel> notificationsList = [];
+  var queryParameters;
   try {
-    var queryParameters = {
-      'email': await UserSecureStorage.getEmail(),
-    };
+    if (email == null || email.isEmpty) {
+      queryParameters = {
+        'email': await UserSecureStorage.getEmail(),
+      };
+    } else {
+      queryParameters = {
+        'email': email,
+      };
+    }
 
     var response = await client.get(
         Uri.https(authority, unencodedPath + "notifications_tutor.php",
@@ -506,13 +408,20 @@ Future<bool> notificationsUpdateCheck(int notificationsTutorId) async {
   }
 }
 
-Future<List<PrivatelessonModel>> getPrivateLessonTodayFromWS(
-    http.Client client) async {
+Future<List<PrivatelessonModel>> getPrivateLessonTodayFromWS(http.Client client,
+    {String email = ''}) async {
+  List<PrivatelessonModel> lessonList = [];
+  var queryParameters;
   try {
-    List<PrivatelessonModel> lessonList = [];
-    var queryParameters = {
-      'email': await UserSecureStorage.getEmail(),
-    };
+    if (email == null || email.isEmpty) {
+      queryParameters = {
+        'email': await UserSecureStorage.getEmail(),
+      };
+    } else {
+      queryParameters = {
+        'email': email,
+      };
+    }
     // print(queryParameters);
     var response = await client.get(
         Uri.https(authority, unencodedPath + "private_lesson_today_list.php",
@@ -530,28 +439,5 @@ Future<List<PrivatelessonModel>> getPrivateLessonTodayFromWS(
   } on Exception catch ($e) {
     print('error caught: ' + $e.toString());
     return null;
-  }
-}
-
-Future<bool> login(http.Client client, String email, String password) async {
-  var data = {'email': email, 'password': password};
-  // Starting Web API Call.
-  // https method: POST
-  var response = await http
-      .post(Uri.https(authority, unencodedPath + 'user_login.php'),
-          headers: <String, String>{'authorization': basicAuth},
-          body: json.encode(data))
-      .timeout(const Duration(seconds: 8));
-  if (response.statusCode == 200) {
-    var message = jsonDecode(response.body);
-
-    // If the Response Message is Matched.
-    if (message == 'Login Matched') {
-      return true;
-    } else {
-      return false;
-    }
-  } else {
-    return false;
   }
 }

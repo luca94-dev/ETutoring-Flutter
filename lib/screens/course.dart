@@ -1,5 +1,5 @@
 import 'package:e_tutoring/constants/Theme.dart';
-import 'package:e_tutoring/controller/controllerWS.dart';
+import 'package:e_tutoring/controller/course_controllerWS.dart';
 import 'package:e_tutoring/model/courseModel.dart';
 import 'package:e_tutoring/screens/courseDetail.dart';
 import 'package:e_tutoring/widgets/drawer.dart';

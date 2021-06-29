@@ -192,7 +192,18 @@ class UserPrivateLessonState extends State<UserPrivateLesson> {
                               ])
                         ]
                       : _buildSearchList())
-                  : _buildList(),
+                  : (_buildList().length == 0
+                      ? [
+                          const SizedBox(height: 30),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(Icons.image_search),
+                                Text(AppLocalizations.of(context).lesson_empty,
+                                    style: TextStyle(fontSize: 18)),
+                              ])
+                        ]
+                      : _buildList()),
             ),
           ),
           floatingActionButton: new FloatingActionButton(

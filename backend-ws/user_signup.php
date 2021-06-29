@@ -102,7 +102,7 @@ try {
 
 					$sql = "DELETE FROM MyGuests WHERE id=$last_id";
 					$connect->query($sql);
-					$InvalidMSG = 'Error: please Try Again' ;
+					$InvalidMSG = 'Error: please Try Again';
 					$InvalidMSGJSon = json_encode($InvalidMSG, JSON_INVALID_UTF8_IGNORE);
 					echo $InvalidMSGJSon;
 				}

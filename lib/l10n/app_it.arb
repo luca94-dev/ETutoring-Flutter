@@ -77,5 +77,6 @@
     "has_booked_your_course" : " ha prenotato il tuo corso ",
     "for_the_date" : " per la data ",
     "today" : "Oggi",
-    "message_notification" : "Nuova lezione prenotata"
+    "message_notification" : "Nuova lezione prenotata",
+    "lesson_empty": "Nessuna lezione prenotata"
 }

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:e_tutoring/config/config.dart';
 import 'package:e_tutoring/constants/Theme.dart';
-import 'package:e_tutoring/controller/controllerWS.dart';
+import 'package:e_tutoring/controller/user_controllerWS.dart';
 import 'package:e_tutoring/model/userModel.dart';
 import 'package:e_tutoring/screens/profile.dart';
 import 'package:e_tutoring/utils/user_secure_storage.dart';

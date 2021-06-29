@@ -1,6 +1,7 @@
 import 'dart:ui';
-import 'package:e_tutoring/config/config.dart';
 import 'package:e_tutoring/controller/controllerWS.dart';
+import 'package:e_tutoring/controller/login_signup_controllerWS.dart';
+import 'package:e_tutoring/controller/role_controllerWS.dart';
 import 'package:e_tutoring/screens/login.dart';
 import 'package:e_tutoring/screens/privacy-policy.dart';
 import 'package:e_tutoring/widgets/button_widget.dart';
@@ -11,7 +12,6 @@ import 'package:e_tutoring/constants/Theme.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Signup extends StatefulWidget {
@@ -86,67 +86,42 @@ class _SignupState extends State<Signup> {
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
       // Store all data with Param Name: json format
-      var data = {
-        'email': email,
-        'password': password,
-        'degree_name': degreeNameSelected.toString(),
-        'degree_type': degreeTypeNoteSelected.toString(),
-        'curriculum': dropDownValueCurriculum.toString(),
-        'role': dropDownValueRole.toString()
-      };
-      // print(json.encode(data));
-      // Starting Web API Call.
-      // http method: POST
-      var response = await http
-          .post(Uri.https(authority, unencodedPath + 'user_signup.php'),
-              headers: <String, String>{'authorization': basicAuth},
-              body: json.encode(data))
-          .timeout(const Duration(seconds: 8));
-      // print(response.body);
-      var message = jsonDecode(response.body);
-      if (response.statusCode == 200) {
-        if (message == 'New record created successfully') {
-          showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Sign Up'),
-                    content: const Text('User sign up with success'),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'Cancel'),
-                        child: const Text('Cancel'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context, 'OK');
-                          Navigator.pushNamed(context, '/login');
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ));
-        } else {
-          showDialog<String>(
-              context: context,
-              builder: (BuildContext context) => AlertDialog(
-                    title: Text("Sign Up"),
-                    content: Text(message.toString()),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context, 'OK');
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ));
-        }
-      } else {
+
+      bool signupResult = await signup(
+          http.Client(),
+          email,
+          password,
+          degreeNameSelected.toString(),
+          degreeTypeNoteSelected.toString(),
+          dropDownValueCurriculum.toString(),
+          dropDownValueRole.toString());
+
+      if (signupResult) {
         showDialog<String>(
             context: context,
             builder: (BuildContext context) => AlertDialog(
                   title: const Text('Sign Up'),
-                  content: Text(message.toString()),
+                  content: const Text('User sign up with success'),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'Cancel'),
+                      child: const Text('Cancel'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context, 'OK');
+                        Navigator.pushNamed(context, '/login');
+                      },
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ));
+      } else {
+        showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: Text("Sign Up"),
+                  content: Text("Error: please Try Again"),
                   actions: <Widget>[
                     TextButton(
                       onPressed: () {
@@ -157,6 +132,7 @@ class _SignupState extends State<Signup> {
                   ],
                 ));
       }
+
       setState(() {
         // Showing CircularProgressIndicator.
         visible = false;
