@@ -5,6 +5,7 @@
 import 'package:e_tutoring/config/config.dart';
 import 'package:e_tutoring/controller/controllerWS.dart';
 import 'package:e_tutoring/model/courseModel.dart';
+import 'package:e_tutoring/model/reviewModel.dart';
 import 'package:e_tutoring/model/roleModel.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -38,6 +39,8 @@ void main() {
    * GET (email): restiuisce la lista dei corsi a cui l'utente può richiedere un tutoraggio
    */
   getUserCourseSearchFromWSTest();
+
+  getReviewFromWSTest();
 }
 
 getAllCourseFromWSTest() {
@@ -282,6 +285,28 @@ getUserCourseSearchFromWSTest() {
       List<CourseModel> courseList = await getUserCourseSearchFromWS(client,
           email: "luca.marignati@edu.unito.it");
       expect(courseList, []);
+    });
+  });
+}
+
+getReviewFromWSTest() {
+  group(' getReviewFromWSTest', () {
+    test('return a review list if success', () async {
+      final client = MockClient();
+      var queryParameters = {
+        'user_tutor_id': 11,
+      };
+      when(client.get(
+          Uri.https(
+              authority, unencodedPath + "review_list.php", queryParameters),
+          headers: <String, String>{
+            'authorization': basicAuth
+          })).thenAnswer((_) async => http.Response(
+          '[{"review_id":"1","user_tutor_id":"11","user_id":"1","review_star":"5","review_comment":"Tutor eccellente!","id":"1","username":"luca.marignati","password":"098f6bcd4621d373cade4e832627b4f6","email":"luca.marignati@edu.unito.it","created_at":"2021-05-07 09:15:35","updated_at":"2021-05-07 09:15:35","user_attribute_id":"1","firstname":"Luca","lastname":"Marignati","description":"-","img":null,"badge_number":"779038","cf":"MRGLCU94D02L219F","birth_date":"1994-04-02","birth_city":"Torino","residence_city":"Settimo Torinese","address":"Via Botticelli 2","nationality":"Italiana","gender":"M","phone_number":"3347811074","degree_id":"2","degree_path_id":"1","role_id":"1"}]',
+          200));
+
+      List<ReviewModel> reviewList = await getReviewFromWS(client, '11');
+      expect(reviewList, isA<List<ReviewModel>>());
     });
   });
 }
