@@ -1,4 +1,3 @@
-import 'package:e_tutoring/config/config.dart';
 import 'package:e_tutoring/constants/Theme.dart';
 import 'package:e_tutoring/controller/controllerWS.dart';
 import 'package:e_tutoring/screens/profile.dart';
@@ -8,7 +7,6 @@ import 'package:e_tutoring/widgets/title_widget.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:e_tutoring/utils/user_secure_storage.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:move_to_background/move_to_background.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -64,74 +62,44 @@ class _LoginState extends State<Login> {
       String email = emailController.text.trim();
       String password = passwordController.text.trim();
       // Store all data with Param Name: json format
-      var data = {'email': email, 'password': password};
 
-      // Starting Web API Call.
-      // https method: POST
-      var response = await http
-          .post(Uri.https(authority, unencodedPath + 'user_login.php'),
-              headers: <String, String>{'authorization': basicAuth},
-              body: json.encode(data))
-          .timeout(const Duration(seconds: 8));
-      // print(response.body);
-      switch (response.statusCode) {
-        case 200:
-          // Getting Server response into variable.
-          var message = jsonDecode(response.body);
+      if (await login(http.Client(), email, password)) {
+        await UserSecureStorage.setEmail(emailController.text);
+        await UserSecureStorage.setPassword(passwordController.text);
 
-          // If the Response Message is Matched.
-          if (message == 'Login Matched') {
-            await UserSecureStorage.setEmail(emailController.text);
-            await UserSecureStorage.setPassword(passwordController.text);
+        // get user role
+        dynamic role = await getRoleFromWS(http.Client(), emailController.text);
+        await UserSecureStorage.setRole(role.role_name);
+        setState(() {
+          visible = false;
+        });
+        Navigator.pop(context);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Profile()));
+      } else {
+        setState(() {
+          visible = false;
+        });
 
-            // get user role
-            dynamic role =
-                await getRoleFromWS(http.Client(), emailController.text);
-            await UserSecureStorage.setRole(role.role_name);
-
-            // UserSecureStorage.getRole().then((value) => print(value));
-
-            // Hiding the CircularProgressIndicator.
-            //print(emailController.text);
-            //print(passwordController.text);
-            setState(() {
-              visible = false;
-            });
-            Navigator.pop(context);
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => Profile()));
-          } else {
-            // UserSecureStorage.delete('email');
-            //  UserSecureStorage.delete('password');
-
-            // If Email or Password did not Matched.
-            // Hiding the CircularProgressIndicator.
-            setState(() {
-              visible = false;
-            });
-
-            // Showing Alert Dialog with Response JSON Message.
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: new Text(message),
-                  actions: <Widget>[
-                    TextButton(
-                      child: new Text("OK"),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        this.emailController.text = email;
-                        this.passwordController.text = password;
-                      },
-                    ),
-                  ],
-                );
-              },
+        // Showing Alert Dialog with Response JSON Message.
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: new Text("Invalid Username or Password Please Try Again"),
+              actions: <Widget>[
+                TextButton(
+                  child: new Text("OK"),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    this.emailController.text = email;
+                    this.passwordController.text = password;
+                  },
+                ),
+              ],
             );
-          }
-
-          break;
+          },
+        );
       }
     } on Exception {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

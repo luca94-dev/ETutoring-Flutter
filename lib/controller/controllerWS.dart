@@ -532,3 +532,26 @@ Future<List<PrivatelessonModel>> getPrivateLessonTodayFromWS(
     return null;
   }
 }
+
+Future<bool> login(http.Client client, String email, String password) async {
+  var data = {'email': email, 'password': password};
+  // Starting Web API Call.
+  // https method: POST
+  var response = await http
+      .post(Uri.https(authority, unencodedPath + 'user_login.php'),
+          headers: <String, String>{'authorization': basicAuth},
+          body: json.encode(data))
+      .timeout(const Duration(seconds: 8));
+  if (response.statusCode == 200) {
+    var message = jsonDecode(response.body);
+
+    // If the Response Message is Matched.
+    if (message == 'Login Matched') {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+}
