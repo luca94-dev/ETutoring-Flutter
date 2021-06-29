@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:e_tutoring/config/config.dart';
-import 'package:e_tutoring/controller/login_signup_controllerWS.dart';
+import 'package:e_tutoring/controller/login_controllerWS.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/http.dart' as http;

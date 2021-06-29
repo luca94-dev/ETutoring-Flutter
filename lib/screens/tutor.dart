@@ -1,4 +1,4 @@
-import 'package:e_tutoring/controller/controllerWS.dart';
+import 'package:e_tutoring/controller/tutor_controllerWS.dart';
 import 'package:e_tutoring/model/tutorModel.dart';
 import 'package:e_tutoring/screens/tutorDetail.dart';
 import 'package:e_tutoring/widgets/drawer.dart';

@@ -77,3 +77,29 @@ Future<List<CourseModel>> getAllCourseFromWS(http.Client client) async {
     return [];
   }
 }
+
+Future<CourseModel> getCourseDetailFromWS(
+    http.Client client, String courseId) async {
+  try {
+    var queryParameters = {
+      'course_id': courseId,
+    };
+    // print(queryParameters);
+    var response = await client.get(
+        Uri.https(
+            authority, unencodedPath + "course_list.php", queryParameters),
+        headers: <String, String>{'authorization': basicAuth});
+
+    var course;
+    if (response.statusCode == 200) {
+      // print(response.body);
+      var courseJsonData = json.decode(response.body);
+      course = CourseModel.fromJson(courseJsonData);
+      // print(user);
+    }
+    return course;
+  } on Exception catch ($e) {
+    print('error caught: ' + $e.toString());
+    return null;
+  }
+}

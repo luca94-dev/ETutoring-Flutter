@@ -1,6 +1,7 @@
 import 'dart:ui';
-import 'package:e_tutoring/controller/controllerWS.dart';
-import 'package:e_tutoring/controller/login_signup_controllerWS.dart';
+import 'package:e_tutoring/controller/curriculum_controllerWS.dart';
+import 'package:e_tutoring/controller/degree_controller.dart';
+import 'package:e_tutoring/controller/login_controllerWS.dart';
 import 'package:e_tutoring/controller/role_controllerWS.dart';
 import 'package:e_tutoring/screens/login.dart';
 import 'package:e_tutoring/screens/privacy-policy.dart';

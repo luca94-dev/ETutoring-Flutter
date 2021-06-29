@@ -1,5 +1,5 @@
 import 'package:e_tutoring/constants/Theme.dart';
-import 'package:e_tutoring/controller/controllerWS.dart';
+import 'package:e_tutoring/controller/private_lesson_controllerWS.dart';
 import 'package:e_tutoring/l10n/l10n.dart';
 import 'package:e_tutoring/model/privatelessonModel.dart';
 import 'package:e_tutoring/provider/locale_provider.dart';
@@ -199,7 +199,7 @@ class UserPrivateLessonState extends State<UserPrivateLesson> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Icon(Icons.image_search),
-                                Text(AppLocalizations.of(context).lesson_empty,
+                                Text("No booked lessons",
                                     style: TextStyle(fontSize: 18)),
                               ])
                         ]

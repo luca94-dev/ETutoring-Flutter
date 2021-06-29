@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:e_tutoring/controller/controllerWS.dart';
+import 'package:e_tutoring/controller/tutor_lessonWS.dart';
 import 'package:e_tutoring/model/tutorLesson.dart';
 import 'package:e_tutoring/utils/utils.dart';
 import 'package:e_tutoring/widgets/drawer.dart';

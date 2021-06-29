@@ -1,4 +1,4 @@
-import 'package:e_tutoring/controller/controllerWS.dart';
+import 'package:e_tutoring/controller/review_controller.dart';
 import 'package:e_tutoring/model/reviewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

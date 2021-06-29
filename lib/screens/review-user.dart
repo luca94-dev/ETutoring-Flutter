@@ -1,5 +1,5 @@
 import 'package:e_tutoring/constants/Theme.dart';
-import 'package:e_tutoring/controller/controllerWS.dart';
+import 'package:e_tutoring/controller/review_controller.dart';
 import 'package:e_tutoring/l10n/l10n.dart';
 import 'package:e_tutoring/model/reviewModel.dart';
 import 'package:e_tutoring/provider/locale_provider.dart';
