@@ -60,6 +60,7 @@ getRoleListFromWSTest() {
       List<RoleModel> roleList = await getRoleListFromWS(client);
       expect("1", roleList[0].role_id);
       expect("Student", roleList[0].role_name);
+      expect(roleList[0], isA<RoleModel>());
     });
 
     test(

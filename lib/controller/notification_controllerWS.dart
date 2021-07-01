@@ -41,12 +41,13 @@ Future<List<NotificationsTutorModel>> getNotificationsTutorFromWS(
   }
 }
 
-Future<bool> notificationsUpdateCheck(int notificationsTutorId) async {
+Future<bool> notificationsUpdateCheck(
+    http.Client client, notificationsTutorId) async {
   try {
     var data = {
       'notifications_tutor_id': notificationsTutorId,
     };
-    var response = await http
+    var response = await client
         .post(
             Uri.https(
                 authority, unencodedPath + 'notifications_tutor_check.php'),

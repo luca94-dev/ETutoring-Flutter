@@ -663,7 +663,7 @@ class _ProfileState extends State<Profile> {
         if (index == 1) {
           for (var notifications in notificationsList) {
             notificationsUpdateCheck(
-                int.parse(notifications.notifications_tutor_id));
+                http.Client(), int.parse(notifications.notifications_tutor_id));
           }
         }
         _currentIndex = index;
