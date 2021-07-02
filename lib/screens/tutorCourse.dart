@@ -172,10 +172,12 @@ class TutorCourseState extends State<TutorCourse> {
       List<CourseModel> _searchList = [];
       for (int i = 0; i < courseList.length; i++) {
         CourseModel course = courseList.elementAt(i);
+
         if (course
             .toString()
             .toLowerCase()
             .contains(_searchText.toLowerCase())) {
+          // print(course);
           _searchList.add(course);
         }
       }

@@ -61,6 +61,6 @@ class CourseModel {
   }
 
   toString() {
-    return this.course_id + ", " + this.course_name;
+    return this.course_name + " " + this.department;
   }
 }
