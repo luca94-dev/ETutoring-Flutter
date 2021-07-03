@@ -84,8 +84,8 @@ class _ProfileStateEdit extends State<ProfileEdit> {
                   child: new Text("OK"),
                   onPressed: () {
                     Navigator.pop(context);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Profile()));
+                    /*Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Profile()));*/
                   },
                 ),
               ],
