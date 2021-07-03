@@ -58,13 +58,13 @@ getAllCourseFromWSTest() {
           headers: <String, String>{
             'authorization': basicAuth
           })).thenAnswer((_) async => http.Response(
-          '[{"course_id": "3","course_name": "Agenti Intelligenti","course_cfu": "6","enrollment_year": "2021/2022","study_year": "1"}]',
+          '[{"course_id": "3","course_name": "Agenti Intelligenti","course_cfu": "6","enrollment_year": "2021/2022","study_year": "1", "department": "Informatica"}]',
           200));
 
       List<CourseModel> courseList = await getAllCourseFromWS(client);
       expect(courseList.length, 1);
       expect(courseList[0], isA<CourseModel>());
-      expect(courseList[0].toString(), "3, Agenti Intelligenti");
+      expect(courseList[0].toString(), "Agenti Intelligenti Informatica");
       expect(courseList[0].course_id, "3");
       expect(courseList[0].course_name, "Agenti Intelligenti");
       expect(courseList[0].course_cfu, "6");
